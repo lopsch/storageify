@@ -1,0 +1,63 @@
+{
+  "name": "storageify",
+  "version": "0.1.0",
+  "author": "Daniel Lopes <lopsch@googlemail.com>",
+  "description": "Store Cycle.js state (from Cycle.js onionify) in HTML5 Local Storage",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "cyclejs",
+    "onionify",
+    "local storage"
+  ],
+  "devDependencies": {
+    "@cycle/run": "*",
+    "babel-cli": "*",
+    "babel-core": "*",
+    "babel-plugin-istanbul": "*",
+    "babel-plugin-transform-object-rest-spread": "*",
+    "babel-preset-babili": "*",
+    "babel-preset-env": "*",
+    "babel-preset-es2015": "*",
+    "babel-register": "*",
+    "benchmark": "*",
+    "chai": "*",
+    "chai-asserttype": "*",
+    "chalk": "*",
+    "cross-spawn": "*",
+    "eslint": "*",
+    "eslint-config-standard": "*",
+    "eslint-plugin-import": "*",
+    "eslint-plugin-node": "*",
+    "eslint-plugin-promise": "*",
+    "eslint-plugin-standard": "*",
+    "fs-extra": "*",
+    "jsdoc": "*",
+    "mocha": "*",
+    "mochawesome": "*",
+    "nyc": "*",
+    "prettier": "*"
+  },
+  "dependencies": {
+    "xstream": "*"
+  },
+  "scripts": {
+    "test-dev-min": "export NODE_ENV=test && export REPORTER=min && node -r babel-register scripts/test/test.dev.js",
+    "test-dev": "export NODE_ENV=test && node -r babel-register scripts/test/test.dev.js",
+    "test-ci": "export NODE_ENV=test && export BABEL_ENV=ci && node -r babel-register scripts/test/test.ci.js",
+    "coverage": "node -r babel-register scripts/coverage/coverage.js",
+    "doc": "node -r babel-register scripts/doc/doc.js",
+    "dist-dev": "export NODE_ENV=test && node -r babel-register scripts/build/build.dev.js",
+    "dist-ci": "export NODE_ENV=production && node -r babel-register scripts/build/build.ci.js",
+    "lint-dist": "yarn run lint && yarn run dist-ci",
+    "ci": "yarn run lint && yarn run test-ci && yarn run coverage && yarn run dist-ci && yarn run doc && yarn run lib",
+    "lib": "node -r babel-register scripts/build/lib.js",
+    "lint": "node -r babel-register scripts/linting/linting.js",
+    "prettier": "node -r babel-register scripts/prettier/prettier.js",
+    "format": "node -r babel-register scripts/prettier/prettier.format.js && node -r babel-register scripts/linting/linting.fix.js",
+    "perf": "node -r babel-register perf/index.perf.js"
+  }
+}
