@@ -1,1 +1,1 @@
-{"version":3,"sources":["../src/index.js"],"names":[],"mappings":";;;;;;AAAA","file":"index.js","sourcesContent":["import storageify from './storageify'\n\nexport default storageify\n"]}
+{"version":3,"sources":["../src/index.js"],"names":[],"mappings":"oEAAA,yF","file":"index.js","sourcesContent":["import storageify from './storageify'\n\nexport default storageify\n"]}

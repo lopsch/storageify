@@ -10,6 +10,11 @@
       "plugins": [
         "istanbul"
       ]
+    },
+    "min": {
+      "presets": [
+        "babili"
+      ]
     }
   }
 }
