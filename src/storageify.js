@@ -1,10 +1,10 @@
 import xs from 'xstream'
 
-function _serialize (state) {
+function serialize_ (state) {
   return JSON.stringify(state)
 }
 
-function _deserialize (state) {
+function deserialize_ (state) {
   try {
     return JSON.parse(state)
   } catch (ex) {
@@ -12,15 +12,15 @@ function _deserialize (state) {
   }
 }
 
-const _key = 'appState'
+const key_ = 'appState'
 
 export default function storageify (component, options = {}) {
-  return _storageify(component, options)
+  return storageify_(component, options)
 }
 
-function _storageify (
+function storageify_ (
   component,
-  { key = _key, serialize = _serialize, deserialize = _deserialize }
+  { key = key_, serialize = serialize_, deserialize = deserialize_ }
 ) {
   if (typeof component !== 'function') {
     throw new Error("storageify's first argument must be of type 'function'.")
