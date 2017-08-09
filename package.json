@@ -5,9 +5,6 @@
   "description": "Store/read Cycle.js state (from Cycle.js onionify) in/from HTML5 Local Storage",
   "main": "lib/index.js",
   "license": "MIT",
-  "files": [
-    "lib"
-  ],
   "keywords": [
     "cyclejs",
     "onionify",
