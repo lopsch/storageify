@@ -3,7 +3,8 @@
   "version": "0.1.4",
   "author": "Daniel Lopes <lopsch@googlemail.com>",
   "description": "Store/read Cycle.js state (from Cycle.js onionify) in/from HTML5 Local Storage",
-  "main": "lib/index.js",
+  "main": "lib/index.umd.js",
+  "module": "lib/index.esm.js",
   "license": "MIT",
   "keywords": [
     "cyclejs",
@@ -21,6 +22,7 @@
     "babel-preset-babili": "0.1.4",
     "babel-preset-env": "1.6.0",
     "babel-preset-es2015": "6.24.1",
+    "babel-preset-es2015-rollup": "3.0.0",
     "babel-register": "6.24.1",
     "benchmark": "2.1.4",
     "chai": "4.1.1",
@@ -38,26 +40,34 @@
     "mocha": "3.5.0",
     "mochawesome": "2.3.0",
     "nyc": "11.1.0",
-    "prettier": "1.5.3"
+    "prettier": "1.5.3",
+    "rollup": "0.45.2",
+    "rollup-plugin-babel": "3.0.1",
+    "rollup-plugin-commonjs": "8.1.0",
+    "rollup-plugin-multi-entry": "2.0.1",
+    "rollup-plugin-node-resolve": "3.0.0",
+    "rollup-watch": "4.3.1"
   },
-  "dependencies": {
+  "peerDependencies": {
     "xstream": "10.9.0"
   },
   "scripts": {
-    "test-dev-min": "export NODE_ENV=test && export REPORTER=min && babel-node scripts/test/test.dev.js",
-    "test-dev": "export NODE_ENV=test && babel-node scripts/test/test.dev.js",
-    "test-ci": "export NODE_ENV=test && export BABEL_ENV=ci && babel-node scripts/test/test.ci.js",
-    "coverage": "babel-node scripts/coverage/coverage.js",
-    "doc": "babel-node scripts/doc/doc.js",
-    "dist-dev": "export NODE_ENV=test && babel-node scripts/build/build.dev.js",
-    "dist-ci": "export NODE_ENV=production && babel-node scripts/build/build.ci.js",
-    "dist-ci-min": "export NODE_ENV=production && export BABEL_ENV=min && babel-node scripts/build/build.ci.js",
+    "test-dev-min": "mocha --colors --require babel-register --reporter min --watch test/**/*.js",
+    "test-dev": "&& mocha --colors --require babel-register --watch test/**/*.js",
+    "test-ci": "rm -rf istanbul mochawesome && nyc mocha --colors --require babel-register --reporter mochawesome --reporter-options reportFilename=index,reportDir=mochawesome,quiet=false,enableCode=false",
+    "coverage": "nyc check-coverage --lines 0 --functions 0 --branches 0 --statements 0",
+    "doc": "rm -rf jsdoc && jsdoc -d jsdoc -r src",
+    "dist-dev": "rm -rf dist && babel src --out-dir dist --watch",
+    "dist-ci": "rm -rf dist && export BABEL_ENV=ci && babel src --out-dir dist --source-maps",
+    "dist-ci-min": "rm -rf dist && export BABEL_ENV=ci-min && babel src --out-dir dist --source-maps",
     "lint-dist": "npm run lint && npm run dist-ci",
-    "ci": "npm run lint && npm run test-ci && npm run coverage && npm run dist-ci-min && npm run doc && npm run lib",
-    "lib": "babel-node scripts/build/lib.js",
-    "lint": "babel-node scripts/linting/linting.js",
-    "prettier": "babel-node scripts/prettier/prettier.js",
-    "format": "babel-node scripts/prettier/prettier.format.js && babel-node scripts/linting/linting.fix.js",
-    "perf": "babel-node perf/index.perf.js"
+    "ci": "npm run clean && npm run format && npm run dist-ci && npm run test-ci && npm run coverage && npm run doc && npm run lib",
+    "lib": "rm -rf lib && cp -a dist lib",
+    "lint": "eslint src/**/*.js test/**/*.js",
+    "prettier": "prettier --list-different --print-width 80 --tab-width 2 --no-semi --single-quote --trailing-comma none --jsx-bracket-same-line --parser babylon src/**/*.js test/**/*.js",
+    "format": "prettier --write --print-width 80 --tab-width 2 --no-semi --single-quote --trailing-comma none --jsx-bracket-same-line --parser babylon src/**/*.js test/**/*.js && eslint --fix src/**/*.js test/**/*.js",
+    "perf": "babel-node perf/index.perf.js",
+    "clean": "rm -rf dist istanbul jsdoc lib mochawesome",
+    "rollup": "rollup src/index.js --format cjs --output bundle.js"
   }
 }

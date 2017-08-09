@@ -3,7 +3,7 @@ import chai, { expect } from 'chai'
 import asserttype from 'chai-asserttype'
 import xs from 'xstream'
 import { adapt } from '@cycle/run/lib/adapt'
-import storageify from '../src'
+import storageify from '../dist'
 
 chai.use(asserttype)
 

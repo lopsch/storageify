@@ -11,9 +11,12 @@
         "istanbul"
       ]
     },
-    "min": {
+    "ci-min": {
       "presets": [
         "babili"
+      ],
+      "plugins": [
+        "istanbul"
       ]
     }
   }
