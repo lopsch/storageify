@@ -47,20 +47,20 @@
     "xstream": "10.9.0"
   },
   "scripts": {
-    "test-dev-min": "export NODE_ENV=test && export REPORTER=min && node -r babel-register scripts/test/test.dev.js",
-    "test-dev": "export NODE_ENV=test && node -r babel-register scripts/test/test.dev.js",
-    "test-ci": "export NODE_ENV=test && export BABEL_ENV=ci && node -r babel-register scripts/test/test.ci.js",
-    "coverage": "node -r babel-register scripts/coverage/coverage.js",
-    "doc": "node -r babel-register scripts/doc/doc.js",
-    "dist-dev": "export NODE_ENV=test && node -r babel-register scripts/build/build.dev.js",
-    "dist-ci": "export NODE_ENV=production && node -r babel-register scripts/build/build.ci.js",
-    "dist-ci-min": "export NODE_ENV=production && export BABEL_ENV=min && node -r babel-register scripts/build/build.ci.js",
+    "test-dev-min": "export NODE_ENV=test && export REPORTER=min && babel-node scripts/test/test.dev.js",
+    "test-dev": "export NODE_ENV=test && babel-node scripts/test/test.dev.js",
+    "test-ci": "export NODE_ENV=test && export BABEL_ENV=ci && babel-node scripts/test/test.ci.js",
+    "coverage": "babel-node scripts/coverage/coverage.js",
+    "doc": "babel-node scripts/doc/doc.js",
+    "dist-dev": "export NODE_ENV=test && babel-node scripts/build/build.dev.js",
+    "dist-ci": "export NODE_ENV=production && babel-node scripts/build/build.ci.js",
+    "dist-ci-min": "export NODE_ENV=production && export BABEL_ENV=min && babel-node scripts/build/build.ci.js",
     "lint-dist": "npm run lint && npm run dist-ci",
     "ci": "npm run lint && npm run test-ci && npm run coverage && npm run dist-ci-min && npm run doc && npm run lib",
-    "lib": "node -r babel-register scripts/build/lib.js",
-    "lint": "node -r babel-register scripts/linting/linting.js",
-    "prettier": "node -r babel-register scripts/prettier/prettier.js",
-    "format": "node -r babel-register scripts/prettier/prettier.format.js && node -r babel-register scripts/linting/linting.fix.js",
-    "perf": "node -r babel-register perf/index.perf.js"
+    "lib": "babel-node scripts/build/lib.js",
+    "lint": "babel-node scripts/linting/linting.js",
+    "prettier": "babel-node scripts/prettier/prettier.js",
+    "format": "babel-node scripts/prettier/prettier.format.js && babel-node scripts/linting/linting.fix.js",
+    "perf": "babel-node perf/index.perf.js"
   }
 }
