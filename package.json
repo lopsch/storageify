@@ -1,10 +1,11 @@
 {
   "name": "storageify",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "Daniel Lopes <lopsch@googlemail.com>",
   "description": "Store/read Cycle.js state (from Cycle.js onionify) in/from HTML5 Local Storage",
-  "main": "lib/index.umd.js",
+  "main": "lib/index.cjs.js",
   "module": "lib/index.esm.js",
+  "browser": "lib/index.umd.js",
   "license": "MIT",
   "keywords": [
     "cyclejs",
@@ -52,22 +53,15 @@
     "xstream": "10.9.0"
   },
   "scripts": {
-    "test-dev-min": "mocha --colors --require babel-register --reporter min --watch test/**/*.js",
-    "test-dev": "&& mocha --colors --require babel-register --watch test/**/*.js",
-    "test-ci": "rm -rf istanbul mochawesome && nyc mocha --colors --require babel-register --reporter mochawesome --reporter-options reportFilename=index,reportDir=mochawesome,quiet=false,enableCode=false",
-    "coverage": "nyc check-coverage --lines 0 --functions 0 --branches 0 --statements 0",
+    "test-dev": "mocha --colors --require babel-register --watch test/**/*.js",
+    "test": "rm -rf istanbul mochawesome && nyc mocha --colors --require babel-register --reporter mochawesome --reporter-options reportFilename=index,reportDir=mochawesome,quiet=false,enableCode=false",
+    "coverage": "export BABEL_ENV=production && npm run build && unset BABEL_ENV && npm run test && nyc check-coverage --lines 0 --functions 0 --branches 0 --statements 0",
     "doc": "rm -rf jsdoc && jsdoc -d jsdoc -r src",
-    "dist-dev": "rm -rf dist && babel src --out-dir dist --watch",
-    "dist-ci": "rm -rf dist && export BABEL_ENV=ci && babel src --out-dir dist --source-maps",
-    "dist-ci-min": "rm -rf dist && export BABEL_ENV=ci-min && babel src --out-dir dist --source-maps",
-    "lint-dist": "npm run lint && npm run dist-ci",
-    "ci": "npm run clean && npm run format && npm run dist-ci && npm run test-ci && npm run coverage && npm run doc && npm run lib",
-    "lib": "rm -rf lib && cp -a dist lib",
-    "lint": "eslint src/**/*.js test/**/*.js",
-    "prettier": "prettier --list-different --print-width 80 --tab-width 2 --no-semi --single-quote --trailing-comma none --jsx-bracket-same-line --parser babylon src/**/*.js test/**/*.js",
-    "format": "prettier --write --print-width 80 --tab-width 2 --no-semi --single-quote --trailing-comma none --jsx-bracket-same-line --parser babylon src/**/*.js test/**/*.js && eslint --fix src/**/*.js test/**/*.js",
+    "build-dev": "rm -rf lib && rollup -c -w",
+    "build": "rm -rf lib && npm run fix && rollup -c -m true",
+    "ci": "npm run clean && npm run coverage && npm run build && npm run doc",
+    "fix": "prettier --write --print-width 80 --tab-width 2 --no-semi --single-quote --trailing-comma none --jsx-bracket-same-line --parser babylon src/**/*.js test/**/*.js && eslint --fix src/**/*.js test/**/*.js",
     "perf": "babel-node perf/index.perf.js",
-    "clean": "rm -rf dist istanbul jsdoc lib mochawesome",
-    "rollup": "rollup src/index.js --format cjs --output bundle.js"
+    "clean": "rm -rf istanbul jsdoc lib mochawesome"
   }
 }

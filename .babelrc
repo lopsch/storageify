@@ -4,20 +4,5 @@
   ],
   "plugins": [
     "transform-object-rest-spread"
-  ],
-  "env": {
-    "ci": {
-      "plugins": [
-        "istanbul"
-      ]
-    },
-    "ci-min": {
-      "presets": [
-        "babili"
-      ],
-      "plugins": [
-        "istanbul"
-      ]
-    }
-  }
+  ]
 }
