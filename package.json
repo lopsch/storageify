@@ -45,23 +45,29 @@
     "rollup": "0.45.2",
     "rollup-plugin-babel": "3.0.1",
     "rollup-plugin-commonjs": "8.1.0",
+    "rollup-plugin-eslint": "4.0.0",
     "rollup-plugin-multi-entry": "2.0.1",
     "rollup-plugin-node-resolve": "3.0.0",
+    "rollup-plugin-progress": "0.4.0",
+    "rollup-plugin-visualizer": "0.3.1",
     "rollup-watch": "4.3.1"
   },
   "peerDependencies": {
     "xstream": "10.9.0"
   },
   "scripts": {
-    "test-dev": "mocha --colors --require babel-register --watch test/**/*.js",
-    "test": "rm -rf istanbul mochawesome && nyc mocha --colors --require babel-register --reporter mochawesome --reporter-options reportFilename=index,reportDir=mochawesome,quiet=false,enableCode=false",
-    "coverage": "export BABEL_ENV=production && npm run build && unset BABEL_ENV && npm run test && nyc check-coverage --lines 0 --functions 0 --branches 0 --statements 0",
+    "test:dev": "mocha --colors --require babel-register --watch test/**/*single.js",
+    "test:cover": "nyc mocha --colors --require babel-register test/**/*single.js",
+    "test": "rm -rf mochawesome && mocha --colors --require babel-register --reporter mochawesome --reporter-options reportFilename=index,reportDir=mochawesome,quiet=false,enableCode=false test/**/*all.js",
+    "cover": "rm -rf istanbul && export BABEL_ENV=coverage && npm run build:cover && unset BABEL_ENV && npm run test:cover && npm run cover:check",
+    "cover:check": "nyc check-coverage --lines 0 --functions 0 --branches 0 --statements 0",
     "doc": "rm -rf jsdoc && jsdoc -d jsdoc -r src",
-    "build-dev": "rm -rf lib && rollup -c -w",
-    "build": "rm -rf lib && npm run fix && rollup -c -m true",
-    "ci": "npm run clean && npm run coverage && npm run build && npm run doc",
+    "build:cover": "rm -rf lib && export NODE_ENV=development && rollup -c rollup.config.dev.js",
+    "build:dev": "rm -rf lib && export NODE_ENV=development && rollup -c rollup.config.dev.js -w",
+    "build:ci": "npm run clean && npm run cover && npm run build && npm run test && npm run doc",
+    "build": "rm -rf lib stats && mkdir stats && export NODE_ENV=production && rollup -c rollup.config.prod.js",
     "fix": "prettier --write --print-width 80 --tab-width 2 --no-semi --single-quote --trailing-comma none --jsx-bracket-same-line --parser babylon src/**/*.js test/**/*.js && eslint --fix src/**/*.js test/**/*.js",
     "perf": "babel-node perf/index.perf.js",
-    "clean": "rm -rf istanbul jsdoc lib mochawesome"
+    "clean": "rm -rf istanbul jsdoc lib mochawesome stats"
   }
 }

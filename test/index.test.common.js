@@ -3,9 +3,6 @@ import chai, { expect } from 'chai'
 import asserttype from 'chai-asserttype'
 import xs from 'xstream'
 import { adapt } from '@cycle/run/lib/adapt'
-import storageifyESM from '../lib/index.esm'
-import storageifyCJS from '../lib/index.cjs'
-import storageifyUMD from '../lib/index.umd'
 
 chai.use(asserttype)
 
@@ -29,7 +26,7 @@ function mockApp (sources) {
 
 function emptyApp (sources) {}
 
-function test (module, storageify) {
+export default function test (module, storageify) {
   describe(`(${module}) storageify()`, () => {
     it('should be a function', () => {
       expect(storageify).to.be.function()
@@ -167,7 +164,3 @@ function test (module, storageify) {
     })
   })
 }
-
-test('esm', storageifyESM)
-test('cjs', storageifyCJS)
-test('umd', storageifyUMD)
