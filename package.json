@@ -1,6 +1,6 @@
 {
   "name": "storageify",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "author": "Daniel Lopes <lopsch@googlemail.com>",
   "description": "Store/read Cycle.js state (from Cycle.js onionify) in/from HTML5 Local Storage",
   "main": "lib/index.cjs.js",
