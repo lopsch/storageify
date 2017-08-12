@@ -1,6 +1,6 @@
 {
   "name": "storageify",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "author": "Daniel Lopes <lopsch@googlemail.com>",
   "description": "Store/read Cycle.js state (from Cycle.js onionify) in/from HTML5 Local Storage",
   "main": "lib/index.cjs.js",
@@ -15,7 +15,7 @@
   "bugs": "https://github.com/lopsch/storageify/issues",
   "repository": "https://github.com/lopsch/storageify",
   "devDependencies": {
-    "@cycle/run": "3.1.0",
+    "@cycle/run": "3.2.0",
     "babel-cli": "6.24.1",
     "babel-core": "6.25.0",
     "babel-plugin-istanbul": "4.1.4",
@@ -42,7 +42,7 @@
     "mochawesome": "2.3.0",
     "nyc": "11.1.0",
     "prettier": "1.5.3",
-    "rollup": "0.45.2",
+    "rollup": "0.47.0",
     "rollup-plugin-babel": "3.0.1",
     "rollup-plugin-commonjs": "8.1.0",
     "rollup-plugin-eslint": "4.0.0",
@@ -52,22 +52,23 @@
     "rollup-plugin-visualizer": "0.3.1",
     "rollup-watch": "4.3.1"
   },
-  "peerDependencies": {
+  "dependencies": {
     "xstream": "10.9.0"
   },
   "scripts": {
     "test:dev": "mocha --colors --require babel-register --watch test/**/*single.js",
     "test:cover": "nyc mocha --colors --require babel-register test/**/*single.js",
     "test": "rm -rf mochawesome && mocha --colors --require babel-register --reporter mochawesome --reporter-options reportFilename=index,reportDir=mochawesome,quiet=false,enableCode=false test/**/*all.js",
-    "cover": "rm -rf istanbul && export BABEL_ENV=coverage && npm run build:cover && unset BABEL_ENV && npm run test:cover && npm run cover:check",
+    "cover": "rm -rf istanbul && npm run build:cover && npm run test:cover && npm run cover:check",
     "cover:check": "nyc check-coverage --lines 0 --functions 0 --branches 0 --statements 0",
     "doc": "rm -rf jsdoc && jsdoc -d jsdoc -r src",
-    "build:cover": "rm -rf lib && export NODE_ENV=development && rollup -c rollup.config.dev.js",
+    "build:perf": "rm -rf lib && export NODE_ENV=performance && rollup -c rollup.config.dev.js",
+    "build:cover": "rm -rf lib && export NODE_ENV=development && export BABEL_ENV=coverage && rollup -c rollup.config.dev.js && unset BABEL_ENV",
     "build:dev": "rm -rf lib && export NODE_ENV=development && rollup -c rollup.config.dev.js -w",
     "build:ci": "npm run clean && npm run cover && npm run build && npm run test && npm run doc",
     "build": "rm -rf lib stats && mkdir stats && export NODE_ENV=production && rollup -c rollup.config.prod.js",
     "fix": "prettier --write --print-width 80 --tab-width 2 --no-semi --single-quote --trailing-comma none --jsx-bracket-same-line --parser babylon src/**/*.js test/**/*.js && eslint --fix src/**/*.js test/**/*.js",
-    "perf": "babel-node perf/index.perf.js",
+    "perf": "npm run build:perf && babel-node perf/index.perf.js",
     "clean": "rm -rf istanbul jsdoc lib mochawesome stats"
   }
 }

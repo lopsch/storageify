@@ -16,5 +16,8 @@
       }
     }
   },
-  "entryConfig": "src/index.js"
+  "entryConfig": "src/index.js",
+  "externalConfig": [
+    "xstream"
+  ]
 }

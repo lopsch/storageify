@@ -7,7 +7,6 @@ import rolluprc from './.rolluprc.json'
 export default [
   {
     entry: rolluprc.entryConfig,
-    external: ['xstream'],
     dest: pkg.module,
     format: 'es',
     plugins: [
@@ -15,6 +14,7 @@ export default [
       eslint({ throwOnError: true, throwOnWarning: true }),
       babel(rolluprc.babelConfig)
     ],
-    sourceMap: false
+    sourceMap: false,
+    external: id => rolluprc.externalConfig.includes(id)
   }
 ]
