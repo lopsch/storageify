@@ -7,8 +7,8 @@ import rolluprc from './.rolluprc.json'
 export default [
   {
     entry: rolluprc.entryConfig,
-    dest: pkg.module,
-    format: 'es',
+    dest: pkg.main,
+    format: 'cjs',
     plugins: [
       progress({ clearLine: false }),
       eslint({ throwOnError: true, throwOnWarning: true }),
