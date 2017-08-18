@@ -1,6 +1,6 @@
 {
   "name": "storageify",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "author": "Daniel Lopes <lopsch@googlemail.com>",
   "description": "Store/read Cycle.js state (from Cycle.js onionify) in/from HTML5 Local Storage",
   "main": "lib/index.js",
@@ -43,6 +43,7 @@
     "prettier": "1.5.3",
     "rollup": "0.47.6",
     "rollup-plugin-babel": "3.0.2",
+    "rollup-plugin-babel-minify": "3.1.2",
     "rollup-plugin-eslint": "4.0.0",
     "rollup-plugin-progress": "0.4.0",
     "rollup-watch": "4.3.1"
