@@ -7,7 +7,8 @@
   "cache": true,
   "reporter": [
     "html",
-    "text-summary"
+    "text",
+    "lcov"
   ],
   "watermarks": {
     "lines": [

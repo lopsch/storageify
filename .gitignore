@@ -61,8 +61,8 @@ jspm_packages
 .DS_Store
 
 # Build folder
-# dist
-# lib
+dist
+lib
 
 # Backup files
 *~

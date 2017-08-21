@@ -5,11 +5,17 @@
   "description": "Store/read Cycle.js state (from Cycle.js onionify) in/from HTML5 Local Storage",
   "main": "lib/index.js",
   "module": "lib/es6/index.js",
+  "browser": "lib/umd/index.js",
+  "unpkg": "lib/umd/index.js",
   "license": "MIT",
   "keywords": [
     "cyclejs",
     "onionify",
     "local storage"
+  ],
+  "files": [
+    "lib",
+    "README.md"
   ],
   "bugs": "https://github.com/lopsch/storageify/issues",
   "repository": "https://github.com/lopsch/storageify",
@@ -29,7 +35,7 @@
     "chai-asserttype": "1.0.5",
     "chalk": "2.1.0",
     "cross-spawn": "5.1.0",
-    "eslint": "4.4.1",
+    "eslint": "4.5.0",
     "eslint-config-standard": "10.2.1",
     "eslint-plugin-import": "2.7.0",
     "eslint-plugin-node": "5.1.1",
@@ -39,12 +45,16 @@
     "jsdoc": "3.5.4",
     "mocha": "3.5.0",
     "mochawesome": "2.3.0",
+    "npm-run-all": "4.0.2",
     "nyc": "11.1.0",
     "prettier": "1.5.3",
-    "rollup": "0.47.6",
+    "rimraf": "2.6.1",
+    "rollup": "0.48.2",
     "rollup-plugin-babel": "3.0.2",
     "rollup-plugin-babel-minify": "3.1.2",
+    "rollup-plugin-commonjs": "8.1.0",
     "rollup-plugin-eslint": "4.0.0",
+    "rollup-plugin-node-resolve": "3.0.0",
     "rollup-plugin-progress": "0.4.0",
     "rollup-watch": "4.3.1"
   },
@@ -55,16 +65,16 @@
     "test:dev": "mocha --colors --require babel-register --watch test/**/*.js",
     "test:cover": "nyc mocha --colors --require babel-register --reporter mochawesome --reporter-options reportFilename=index,reportDir=mochawesome,quiet=false,enableCode=false test/**/*.js",
     "test": "mocha --colors --require babel-register test/**/*.js",
-    "cover": "rm -rf istanbul mochawesome && npm run build:cover && npm run test:cover && npm run cover:check",
+    "cover": "rimraf istanbul mochawesome && npm run build:cover && npm run test:cover && npm run cover:check",
     "cover:check": "nyc check-coverage --lines 0 --functions 0 --branches 0 --statements 0",
-    "doc": "rm -rf jsdoc && jsdoc -d jsdoc -r src",
-    "build:perf": "rm -rf lib && export NODE_ENV=performance && rollup -c rollup.config.dev.js",
-    "build:cover": "rm -rf lib && export NODE_ENV=development && export BABEL_ENV=coverage && rollup -c rollup.config.dev.js && unset BABEL_ENV",
-    "build:dev": "rm -rf lib && export NODE_ENV=development && rollup -c rollup.config.dev.js -w",
+    "doc": "rimraf jsdoc && jsdoc -d jsdoc -r src",
+    "build:perf": "rimraf lib && export NODE_ENV=performance && rollup -c rollup.config.dev.js",
+    "build:cover": "rimraf lib && export NODE_ENV=development && export BABEL_ENV=coverage && rollup -c rollup.config.dev.js && unset BABEL_ENV",
+    "build:dev": "rimraf lib && export NODE_ENV=development && rollup -c rollup.config.dev.js -w",
     "build:ci": "npm run clean && npm run cover && npm run build && npm run doc",
-    "build": "rm -rf lib && export NODE_ENV=production && export BABEL_ENV=production && rollup -c rollup.config.prod.js",
+    "build": "rimraf lib && export NODE_ENV=production && export BABEL_ENV=production && rollup -c rollup.config.prod.js",
     "fix": "prettier --write --print-width 80 --tab-width 2 --no-semi --single-quote --trailing-comma none --jsx-bracket-same-line --parser babylon src/**/*.js test/**/*.js && eslint --fix src/**/*.js test/**/*.js",
     "perf": "npm run build:perf && babel-node perf/index.perf.js",
-    "clean": "rm -rf istanbul jsdoc lib mochawesome"
+    "clean": "rimraf istanbul jsdoc lib mochawesome"
   }
 }
