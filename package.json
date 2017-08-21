@@ -1,11 +1,12 @@
 {
   "name": "storageify",
-  "version": "0.2.5",
+  "version": "0.0.0-development",
   "author": "Daniel Lopes <lopsch@googlemail.com>",
   "description": "Store/read Cycle.js state (from Cycle.js onionify) in/from HTML5 Local Storage",
   "main": "lib/index.js",
   "module": "lib/es6/index.js",
   "browser": "lib/umd/index.js",
+  "min": "lib/umd/index.min.js",
   "unpkg": "lib/umd/index.js",
   "license": "MIT",
   "keywords": [
@@ -17,8 +18,13 @@
     "lib",
     "README.md"
   ],
-  "bugs": "https://github.com/lopsch/storageify/issues",
-  "repository": "https://github.com/lopsch/storageify",
+  "bugs": {
+    "url": "https://github.com/lopsch/storageify/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lopsch/storageify"
+  },
   "devDependencies": {
     "@cycle/run": "3.2.0",
     "babel-cli": "6.26.0",
@@ -34,7 +40,10 @@
     "chai": "4.1.1",
     "chai-asserttype": "1.0.5",
     "chalk": "2.1.0",
+    "codecov": "2.3.0",
+    "commitizen": "2.9.6",
     "cross-spawn": "5.1.0",
+    "cz-conventional-changelog": "2.0.0",
     "eslint": "4.5.0",
     "eslint-config-standard": "10.2.1",
     "eslint-plugin-import": "2.7.0",
@@ -56,7 +65,8 @@
     "rollup-plugin-eslint": "4.0.0",
     "rollup-plugin-node-resolve": "3.0.0",
     "rollup-plugin-progress": "0.4.0",
-    "rollup-watch": "4.3.1"
+    "rollup-watch": "4.3.1",
+    "semantic-release": "7.0.2"
   },
   "dependencies": {
     "xstream": "10.9.0"
@@ -66,6 +76,7 @@
     "test:cover": "nyc mocha --colors --require babel-register --reporter mochawesome --reporter-options reportFilename=index,reportDir=mochawesome,quiet=false,enableCode=false test/**/*.js",
     "test": "mocha --colors --require babel-register test/**/*.js",
     "cover": "rimraf istanbul mochawesome && npm run build:cover && npm run test:cover && npm run cover:check",
+    "cover:report": "nyc report --reporter=html --reporter=text-lcov > istanbul/coverage.lcov && codecov --disable=gcov",
     "cover:check": "nyc check-coverage --lines 0 --functions 0 --branches 0 --statements 0",
     "doc": "rimraf jsdoc && jsdoc -d jsdoc -r src",
     "build:perf": "rimraf lib && export NODE_ENV=performance && rollup -c rollup.config.dev.js",
@@ -75,6 +86,13 @@
     "build": "rimraf lib && export NODE_ENV=production && export BABEL_ENV=production && rollup -c rollup.config.prod.js",
     "fix": "prettier --write --print-width 80 --tab-width 2 --no-semi --single-quote --trailing-comma none --jsx-bracket-same-line --parser babylon src/**/*.js test/**/*.js && eslint --fix src/**/*.js test/**/*.js",
     "perf": "npm run build:perf && babel-node perf/index.perf.js",
-    "clean": "rimraf istanbul jsdoc lib mochawesome"
+    "clean": "rimraf istanbul jsdoc lib mochawesome",
+    "release": "semantic-release pre && npm publish && semantic-release post",
+    "commit": "git-cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

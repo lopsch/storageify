@@ -24,6 +24,26 @@ export default [
       eslint({ throwOnError: true, throwOnWarning: true }),
       resolve(),
       commonjs(),
+      babel(rolluprc.babelConfig)
+    ],
+    external: id => rolluprc.externalConfig.includes(id)
+  },
+  {
+    input: rolluprc.entryConfig,
+    output: [
+      {
+        file: pkg.min,
+        format: 'umd',
+        name: 'storageify',
+        sourcemap: true,
+        globals: { xstream: 'xs' }
+      }
+    ],
+    plugins: [
+      progress({ clearLine: false }),
+      eslint({ throwOnError: true, throwOnWarning: true }),
+      resolve(),
+      commonjs(),
       babel(rolluprc.babelConfig),
       minify()
     ],
@@ -38,8 +58,7 @@ export default [
     plugins: [
       progress({ clearLine: false }),
       eslint({ throwOnError: true, throwOnWarning: true }),
-      babel(rolluprc.babelConfig),
-      minify()
+      babel(rolluprc.babelConfig)
     ],
     external: id => rolluprc.externalConfig.includes(id)
   }
