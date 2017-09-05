@@ -22,9 +22,9 @@ export default [
     plugins: [
       progress({ clearLine: false }),
       eslint({ throwOnError: true, throwOnWarning: true }),
+      babel(rolluprc.babelConfig),
       resolve(),
-      commonjs(),
-      babel(rolluprc.babelConfig)
+      commonjs()
     ],
     external: id => rolluprc.externalConfig.includes(id)
   },
@@ -42,9 +42,9 @@ export default [
     plugins: [
       progress({ clearLine: false }),
       eslint({ throwOnError: true, throwOnWarning: true }),
+      babel(rolluprc.babelConfig),
       resolve(),
       commonjs(),
-      babel(rolluprc.babelConfig),
       minify()
     ],
     external: id => rolluprc.externalConfig.includes(id)

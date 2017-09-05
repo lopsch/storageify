@@ -104,27 +104,29 @@ describe(`storageify()`, () => {
   it('should return not empty sinks object with all needed sink streams declared as properties when called with a valid sources object', () => {
     const sinks = storageify(mockApp)(mockSources)
 
-    expect(sinks).with.deep.nested
-      .property('onion.addListener')
+    expect(sinks)
+      .with.deep.nested.property('onion.addListener')
       .to.be.function()
 
-    expect(sinks).with.deep.nested
-      .property('storage.addListener')
+    expect(sinks)
+      .with.deep.nested.property('storage.addListener')
       .to.be.function()
   })
 
   it("should return not empty sinks object with all needed sink streams (including component's sinks) declared as properties when called with a valid sources object", () => {
     const sinks = storageify(mockApp)(mockSources)
 
-    expect(sinks).with.deep.nested
-      .property('onion.addListener')
+    expect(sinks)
+      .with.deep.nested.property('onion.addListener')
       .to.be.function()
 
-    expect(sinks).with.deep.nested
-      .property('storage.addListener')
+    expect(sinks)
+      .with.deep.nested.property('storage.addListener')
       .to.be.function()
 
-    expect(sinks).with.deep.nested.property('fake.addListener').to.be.function()
+    expect(sinks)
+      .with.deep.nested.property('fake.addListener')
+      .to.be.function()
   })
 
   it('should read the correct state', done => {
