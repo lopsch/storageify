@@ -45,7 +45,7 @@ export default [
       babel(rolluprc.babelConfig),
       resolve(),
       commonjs(),
-      minify()
+      minify({ comments: false, removeConsole: true, removeDebugger: true })
     ],
     external: id => rolluprc.externalConfig.includes(id)
   },
